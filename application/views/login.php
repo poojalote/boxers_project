@@ -19,17 +19,24 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/style.css">
     <style type="text/css">
         body {
-            background-color: #f2e5e9;
+            background-image: url("<?php echo base_url(); ?>assets/img/boxing/login_back.jpg");
+            background-repeat: no-repeat, repeat;
+  background-color: #cccccc;
             font-family: 'Ubuntu', sans-serif;
+             -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
         }
-        .main
+             .main
         {
-            background-color: #FFFFFF;
+            background-color: #000000;
             width: 400px;
             height: auto;
             margin: 7em auto;
-            border-radius: 1.5em;
+            /*border-radius: 1.5em;*/
             box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+            opacity: 0.7;
         }
         .sign {
             padding-top: 40px;
@@ -45,10 +52,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
             font-weight: 700;
             font-size: 14px;
             letter-spacing: 1px;
-            background: rgba(136, 126, 126, 0.04);
+            background: #ffffff;
             padding: 10px 20px;
             border: none;
-            border-radius: 20px;
+            border-radius: 0px!important;
             outline: none;
             box-sizing: border-box;
             border: 2px solid rgba(0, 0, 0, 0.02);
@@ -75,7 +82,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
             background: rgba(136, 126, 126, 0.04);
             padding: 10px 20px;
             border: none;
-            border-radius: 20px;
+            border-radius: 0px!important;
             outline: none;
             box-sizing: border-box;
             border: 2px solid rgba(0, 0, 0, 0.02);
@@ -117,7 +124,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
         a {
             text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
-            color: #891635;
+            color: #cf000e;
             text-decoration: none
         }
         .footer {
@@ -156,58 +163,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 <body>
 <div id="app">
-    <!--   <section class="section">
-      <div class="container mt-5">
-        <div class="row">
-          <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
-
-
-            <div class="card card-primary">
-              <div class="card-header"><h4>Login</h4></div>
-
-              <div class="card-body">
-                <form method="POST" action="#" class="needs-validation" novalidate="checklogin"  onsubmit="return false" id="loginForm">
-                  <div class="form-group">
-                    <label for="email">Email</label>
-                    <input id="email" type="email" class="form-control" name="email" tabindex="1" required autofocus>
-                    <div class="invalid-feedback">
-                      Please fill in your email
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <div class="d-block">
-                      <label for="password" class="control-label">Password</label>
-                      <div class="float-right">
-                        <a href="<?php echo base_url(); ?>dist/auth_forgot_password" class="text-small">
-                          Forgot Password?
-                        </a>
-                      </div>
-                    </div>
-                    <input id="password" type="password" class="form-control" name="password" tabindex="2" required>
-                    <div class="invalid-feedback">
-                      please fill in your password
-                    </div>
-                  </div>
-
-
-
-                  <div class="form-group">
-                    <button type="button" onclick="checkLogin()" class="btn btn-primary btn-lg btn-block" tabindex="4">
-                      Login
-                    </button>
-                  </div>
-                </form>
-
-
-              </div>
-            </div>
-
-
-          </div>
-        </div>
-      </div>
-    </section> -->
     <section class="section">
         <div class="container">
             <div class="row">
@@ -216,7 +171,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
                     <div class="card main">
                         <div class="login-brand mb-4">
-                            <img src="<?php echo base_url(); ?>assets/img/gbtech.png" height="50" width="80" alt="logo">
+                            <!-- <img src="<?php echo base_url('assets/img/boxing/boxing_logo1.png'); ?>" height="50" width="80" alt="logo"> -->
+                            <span style="color: white;"><b style="color:#b32534;">BOXING</b>State</span>
                         </div>
 
                         <div class="card-body text-center">
@@ -243,7 +199,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
                                 <div class="form-group">
 
-                                    <button type="button" class="submit" onclick="checkLogin()" style="background: #891635;color: white;" tabindex="4">
+                                    <button type="button" class="submit" onclick="checkLogin()" style="background: #cf000e;color: white;" tabindex="4">
                                         SIGN IN
                                     </button>
                                     <p class="forgot" align="center"><a href="<?php echo base_url(); ?>dist/auth_forgot_password">Forgot Password?</a></p>
@@ -256,7 +212,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 
 
-                    <div class=" footer"> <div style="box-shadow: 3px 0px 3px #000000;padding: 4px;margin: 0px;">Copyright ©  <?= date('Y') ?></div></div>
+                   
                 </div>
             </div>
         </div>

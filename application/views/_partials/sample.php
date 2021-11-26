@@ -1,5 +1,5 @@
 <?php
-$user_email = $this->session->user_session->email;$user_email;
+$user_id = $this->session->user_session->user_id;
 ?>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <style type="text/css">
@@ -295,7 +295,7 @@ $user_email = $this->session->user_session->email;$user_email;
       }
    }
 </style>
-<input type="hidden" id="email_emp" name="email_emp" value="<?php echo $user_email ?>">
+<input type="hidden" id="email_emp" name="email_emp" value="<?php echo $user_id ?>">
   <div style="left: 0;right: 0;">
      <div class="navbar-bg" style="background: #ffffff;height: 10px;left: 0;right: 0;"></div>
      <div class="navbar-bg" style="background: #d2454d;height: 10px;left: 0;right: 0;margin-top: 10px;"></div>
@@ -306,77 +306,18 @@ $user_email = $this->session->user_session->email;$user_email;
      
         <div class="dropdown" id="desktop_view" style="transform:skew(30deg); margin-left: auto!important;float: right;margin-top: 1px;background: transparent;">
         
-          <button onclick="myFunctionDropDown()" class="dropbtn">Mentor Suite <i class="fa fa-sort-down "></i></button>
+          <button onclick="myFunctionDropDown()" class="dropbtn"><?php echo $user_id?> <i class="fa fa-sort-down "></i></button>
           <div id="myDropdown" class="dropdown-content" style="
     right: 0;
-    left: auto;width: 508px;background: transparent;margin-top: 15px;
+    left: auto;width: 410px;background: transparent;margin-top: 15px;
 ">
            <div class="navbar1">
-  <a href="#" onclick="goToHrms('execution')" class="myCss"><div style="transform:skew(30deg)!important;">Execution</div></a>
-  <div class="subnav1">
-    <button class="subnavbtn1 myCss" style="padding: 7px 15px 7px 15px;margin-right: 10px;font-weight: 500;"><div style="transform:skew(30deg)!important;">Planning <i class="fa fa-caret-down"></i></div></button>
-    <div class="subnav-content1">
-      <div class="my_menu_child">
-      <a href="#" title="Project Management"onclick="goToRmt('projectManagement')"><i class="fa fa-list" style="font-size: 30px!important;color:#d2454d;"></i></a>
-      <a href="#" title="Board" onclick="goToRmt('board')"><i class="fa fa-address-card" style="font-size: 30px!important;color:#d2454d;"></i></a>
-      <a href="#" title="Master Data" onclick="goToRmt('service')"><i class="fa fa-caret-square-down" style="font-size: 30px!important;color:#d2454d;"></i></a>
-     <!-- <a href="#" title="Customer" onclick="goToRmt('customer')"><i class="fa fa-user" style="font-size: 30px!important;color:#d2454d;"></i></a>
-      <a href="#" title="Employee" onclick="goToRmt('employee')"><i class="fa fa-users" style="font-size: 30px!important;color:#d2454d;"></i></a>
-      <a href="#" title="Task" onclick="goToRmt('task')"><i class="fa fa-clipboard " style="font-size: 30px!important;color:#d2454d;"></i></a>
-      <a href="#" title="Service & Offerings" onclick="goToRmt('service')"><i class="fas fa-cubes " style="font-size: 30px!important;color:#d2454d;"></i></a>-->
-      </div>
-    </div>
-  </div> 
-  <div class="subnav1">
-    <button class="subnavbtn1 myCss" style="padding: 7px 15px 7px 15px;margin-right: 10px;font-weight: 500;"><div style="transform:skew(30deg)!important;">Communication <i class="fa fa-caret-down"></i></div></button>
-    <div class="subnav-content1">
-      <div class="my_menu_child">
-          <a href="#" title="Mail"  onclick="goToRmt('mail')"><i class="fa fa-envelope" style="font-size: 30px!important;color:#d2454d;"></i></a>
-          <a href="#" title="Chat" onclick="goToRmt('chat')"><i class="fa fa-comments" style="font-size: 30px!important;color:#d2454d;"></i></a>
-          <a href="#" title="Folder" onclick="goToRmt('folder')"><i class="fa fa-folder" style="font-size: 30px!important;color:#d2454d;"></i></a>
-
-  </div>
-    </div>
-  </div> 
-  <!--<div class="subnav1">
-    <button class="subnavbtn1 myCss" style="padding: 7px 15px 7px 15px;margin-right: 10px;font-weight: 500;"><div style="transform:skew(30deg)!important;">Knowledge Store <i class="fa fa-caret-down"></i></div></button>
-    <div class="subnav-content1">
-      <div class="my_menu_child">
-      <a href="#link1">Link 1</a>
-      <a href="#link2">Link 2</a>
-      <a href="#link3">Link 3</a>
-      <a href="#link4">Link 4</a>
-  </div>
-    </div>
-  </div>-->
-  <!-- <div class="subnav1">
-       <button class="subnavbtn1 myCss" style="padding: 7px 15px 7px 15px;margin-right: 10px;font-weight: 500;"><div style="transform:skew(30deg)!important;">Financial Controls<i class="fa fa-caret-down"></i></div></button>
-       <div class="subnav-content1">
-           <div class="my_menu_child">
-               <a href="#" title="Service Request" onclick="goToPayroll('p_service_request')"><i class="fa fa-address-card" style="font-size: 30px!important;color:#d2454d;"></i></a>
-               <a href="#" title="Run Payroll" onclick="goToPayroll('p_run_payroll')"><i class="fa fa-money" style="font-size: 30px!important;color:#d2454d;"></i></a>
-               <a href="#" title="Form 16" onclick="goToPayroll('p_form16')"><i class="fa fa-file" style="font-size: 30px!important;color:#d2454d;"></i></a>
-           </div>
-       </div>
-   </div>-->
-			   <div class="subnav1">
-				   <button class="subnavbtn1 myCss"
-						   style="padding: 7px 15px 7px 15px;margin-right: 10px;font-weight: 500;">
-					   <div style="transform:skew(30deg)!important;">CRM <i class="fa fa-caret-down"></i></div>
-				   </button>
-				   <div class="subnav-content1">
-					   <div class="my_menu_child" style="width: 129px;margin-right: 30% !important;">
-							   <a href="#" title="Mail" onclick="goToCrm('MassMail')"><i class="fa fa-mail-bulk"
-																						 style="font-size: 30px!important;color:#d2454d;"></i></a>
-						   <a href="#" title="Master Data" onclick="goToCrm('Survey')"><i class="fa fa-poll"
-																							 style="font-size: 30px!important;color:#d2454d;"></i></a>
+  <a href="#" onclick="goToPage('EventManagement')" class="myCss"><div style="transform:skew(30deg)!important;">Events Management</div></a>
+  <a href="#" onclick="goToPage('AtheletManagement')" class="myCss"><div style="transform:skew(30deg)!important;">Athelets</div></a>
+  <a href="#" onclick="goToPage('EnquiryManagement')" class="myCss"><div style="transform:skew(30deg)!important;">Enquiries</div></a>
 
 
 
-
-					   </div>
-				   </div>
-			   </div>
 </div>
           </div>
 
@@ -386,9 +327,9 @@ $user_email = $this->session->user_session->email;$user_email;
          <div id="myDropdowndata" class="dropdown-content1" style="
             right: 0;left: auto;width: 200px;margin-top: 15px;">
             <a onclick="goToHrms('execution')" class="Execution">Execution</a>
-            <a onclick="hideShowMenuDiv('PlanningsubmenuBar')" class="Planning">Planning</a>
-            <a onclick="hideShowMenuDiv('CommunicationsubmenuBar')" class="Commumnication">Commumnication</a>
-            <a onclick="hideShowMenuDiv('CRMsubmenuBar')" class="CRM">CRM</a>
+            <a onclick="goToHrms('execution')" class="Execution">Athelets</a>
+            <a onclick="goToHrms('execution')" class="Execution">Enquiries</a>
+
         </div>
       </div>
       <a href="<?= base_url('logout'); ?>" >
@@ -399,28 +340,6 @@ $user_email = $this->session->user_session->email;$user_email;
   </div>
     <div class="execution_bar sameSubmenuClass" id="ExecutionsubmenuBar" style="display: none;">
        
-    </div>
-     <div class="planning_bar sameSubmenuClass" id="PlanningsubmenuBar" style="display: none;">
-       <a href="#" onclick="goToRmt('projectManagement')" class="mobile_a_menu"><i class="fa fa-list menu_mm"></i></a>
-      <a href="#" onclick="goToRmt('board')" class="mobile_a_menu"><i class="fa fa-address-card menu_mm"></i></a>
-      <a href="#" onclick="goToRmt('service')" class="mobile_a_menu"><i class="fa fa-caret-square-down menu_mm"></i></a>
-
-
-    </div>
-     <div class="planning_bar sameSubmenuClass" id="CommunicationsubmenuBar" style="display: none;">
-        <a href="#" onclick="goToRmt('mail')" class="mobile_a_menu"><i class="fa fa-envelope menu_mm"></i></a>
-        <a href="#" onclick="goToRmt('chat')" class="mobile_a_menu"><i class="fa fa-comments menu_mm"></i></a>
-        <a href="#" onclick="goToRmt('folder')" class="mobile_a_menu"><i class="fa fa-folder menu_mm"></i></a>
-    </div>
-
-
-    <div class="planning_bar sameSubmenuClass" id="CRMsubmenuBar" style="display: none;">
-		<a href="#" onclick="goToCrm('MassMail')" class="mobile_a_menu"><i class="fa fa-mail-bulk menu_mm"
-																  ></i></a>
-		<a href="#"  onclick="goToCrm('Survey')" class="mobile_a_menu"><i class="fa fa-poll menu_mm"
-																			 ></i></a>
-
-      
     </div>
 <script type="text/javascript">
   /* When the user clicks on the button,
@@ -462,79 +381,12 @@ window.onclick = function(event) {
     }
   }
 }
-function hideShowMenuDiv(id)
-{
-  var divsToHide=document.getElementsByClassName("sameSubmenuClass");
-  for(var i = 0; i < divsToHide.length; i++){
-        
-        divsToHide[i].style.display = "none"; 
-    }
-  
-  var div_id=document.getElementById(id);
-  div_id.style.display="block";
-}
-function goToHrms(id){
-  if(id=="execution")
-  {
-    window.location.href="https://execution.docango.com/dashboard";
-  }
-}
-function goToRmt(id) {
-    if(id == "mail"){
-        window.location.href="https://rmt.docango.com/email_client1";
-    }
-    if(id=="projectManagement"){
-        window.location.href="https://rmt.docango.com/view_contract";
-    }
-    if(id=="chat"){
-        window.location.href="https://rmt.docango.com/messenger";
-    }
-    if(id=="folder"){
-        window.location.href="https://rmt.docango.com/folder_desktop_view";
-    }
-    if(id=="board"){
-        window.location.href="https://rmt.docango.com/MobileViewController/board";
-    }
-    if(id=="customer"){
-        window.location.href="https://rmt.docango.com/viewcustomerMobile";
-    }
-    if(id=="employee"){
-        window.location.href="https://rmt.docango.com/view_employeeMobile";
-    }
-    if(id=="task"){
-        window.location.href="https://rmt.docango.com/task_mobile";
-    }
-    if(id=="service"){
-        window.location.href="https://rmt.docango.com/service_mobile";
-    }
-    if(id=="view_officeMobile"){
-        window.location.href="https://rmt.docango.com/view_officeMobile";
-    }
+
+function goToPage(id){
+    window.location.href='<?= base_url()?>'+id;
 
 }
 
-function goToPayroll(id){
-    $.ajax({
-        type: "POST",
-        url: "<?= base_url("PayrollController/payroll_login") ?>",
-        dataType: "json",
-
-        success: function (result) {
-            if (result.code === 200) {
-                var email=result.email;
-                var password=result.password;
-                window.location.assign("https://payroll.docango.com/Login/rmt_login?user_id1="+email+"&password1="+password+"&id="+id);
-            } else {
-                alert("Your email id is not found please login. if you have your login id and password");
-                window.location.assign("https://payroll.docango.com");
-            }
-        },
-        error: function (error) {
-//                                                                $("#loader12").hide();
-            alert("Something went wrong!");
-        }
-    });
-}
 
   function goToCrm(id) {
 	var email=$("#email_emp").val();

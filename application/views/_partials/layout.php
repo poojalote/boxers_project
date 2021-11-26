@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 $username = "";
 if (isset($this->session->user_session)) {
-  $username = $this->session->user_session->user_name;
+  $username = $this->session->user_session->user_id;
 } else {
   redirect("");
 }

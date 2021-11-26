@@ -136,11 +136,15 @@ class LoginController extends HexaController
 	        "password"=>$password,
         );
 	    $query=$this->MasterModel->_select("login_table",$where,"*");
+        $this->load->library('session');
 	    if($query->totalCount == 0){
+            $userData=new \stdClass();
+            $userData->user_id="admin";
+            $this->session->user_session=$userData;
 	        $response['status']=200;
         }else{
             $response['status']=201;
-        }echo json_encode($results);
+        }echo json_encode($response);
     }
 
 

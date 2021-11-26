@@ -1,78 +1,9 @@
+$( document ).ready(function() {
+    LoadCalendar();
 
-document.addEventListener('DOMContentLoaded', function () {
-    var employee_name=$("#employee_name").html();
-
-    var calendarEl = document.getElementById('calendar');
-    let formData = new FormData();
-    formData.set("user_id", $("#whichEmployeeUserId").val());
-    formData.set("id", $("#whichEmployeeId").val());
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-        selectable: true,
-        headerToolbar: {
-            left: 'prev,next',
-            center: 'title',
-            right: 'timeGridWeek,timeGridDay,dayGridMonth'
-        },
-
-        initialView: 'timeGridWeek',
-        editable: true,
-        displayEventTime: false,
-        dayMaxEvents: true, // when too many events in a day, show the popover
-        events: function (fetchInfo, successCallback, failureCallback) {
-            app.request(baseURL + 'GetCalendarData', formData).then(result => {
-                // $.LoadingOverlay("hide");
-                if (result.status == 200) {
-                    var data = result.data;
-
-                    $('#addevendatadiv').show();
-                    $("#textAreaEg").show();
-                    $("#deleteButton").hide();
-                    $("#h6addev").show();
-                    $("#countagenda").val(0);
-                    // $(data).each(function( index ) {
-                    //     console.log(data[index]);
-                    //     successCallback(data[index]);
-                    // });
-                    successCallback(data);
-
-                } else {
-                    console.log('a');
-                }
-            }).catch(error => {
-                console.log(error);
-                // $.LoadingOverlay("hide");
-                // app.errorToast("something went wrong please try again11");
-            })
-            //  callback(data);
-        }, eventTextColor: "black", eventOverlap: false,
-        dateClick: function (info) {
-            if(employee_name == ""){
-                getModalCalendarClick(info.dateStr);
-            }
-
-        },eventClick: function(info) {
-            var d=info.event;
-            var  created_by =info.event.extendedProps.createdBy;
-            if(d.id !=  ""){
-                getEventDetailsByID(d.id,d.extendedProps.master_event_id,info.dateStr,created_by).then(textshow=>{
-
-                });
-            }
-            // change the border color just for fun
-            info.el.style.borderColor = 'red';
-        }
-
-    });
-
-    calendar.render();
 });
-
 function LoadCalendar() {
     var calendarEl = document.getElementById('calendar');
-    var employee_name=$("#employee_name").html();
-    let formData = new FormData();
-    formData.set("user_id", $("#whichEmployeeUserId").val());
-    formData.set("id", $("#whichEmployeeId").val());
     var calendar = new FullCalendar.Calendar(calendarEl, {
         selectable: true,
         headerToolbar: {
@@ -81,24 +12,17 @@ function LoadCalendar() {
             right: 'timeGridWeek,timeGridDay,dayGridMonth'
         },
 
-        initialView: 'timeGridWeek',
+        initialView: 'dayGridMonth',
         editable: true,
         displayEventTime: false,
         dayMaxEvents: true, // when too many events in a day, show the popover
         events: function (fetchInfo, successCallback, failureCallback) {
-            app.request(baseURL + 'GetCalendarData', formData).then(result => {
+            app.request(baseURL + 'GetEventData').then(result => {
                 // $.LoadingOverlay("hide");
                 if (result.status == 200) {
                     var data = result.data;
-                    $('#addevendatadiv').show();
-                    $("#textAreaEg").show();
-                    $("#deleteButton").hide();
-                    $("#h6addev").show();
-                    $("#countagenda").val(0);
-                    // $(data).each(function( index ) {
-                    //     console.log(data[index]);
-                    //     successCallback(data[index]);
-                    // });
+                    console.log(data)
+
                     successCallback(data);
 
                 } else {
@@ -114,18 +38,18 @@ function LoadCalendar() {
 
         dateClick: function (info) {
 
-            if(employee_name == ""){
+
                 getModalCalendarClick(info.dateStr);
-            }
+
         },eventClick: function(info) {
             var d=info.event;
             console.log('pppp');
             console.log(d);
             var  created_by =info.event.extendedProps.createdBy;
             if(d.id !=  ""){
-                getEventDetailsByID(d.id,d.extendedProps.master_event_id,info.dateStr,created_by).then(textshow=>{
-
-                });
+                console.log(d.id);
+                var date = convertDate(info);
+                getEventBydate(d.id);
             }
             // change the border color just for fun
             info.el.style.borderColor = 'red';
@@ -136,73 +60,7 @@ function LoadCalendar() {
     calendar.render();
 }
 
-function addAgendatolocal(agenda=null,c=null){
-    if(agenda == null){
-        var agenda=$("#addeventAgenda").val();
-        var countagenda=$("#countagendaN").val();
-        console.log(countagenda);
-        var c= (countagenda)*1+1;
-        /* var html=`<div class="d-flex" id="t_div${c}"><input class="form-control form-control-sm" style="margin-left: 12px;" name="addeventAgenda[]" type="text" id="addeventAgenda${c}">
- <button class="btn btn-link" id="del_li_btn${c}" onclick="deleteli(${c})" type="button">
- <i class="fa fa-trash"></i></button></div>`;*/
-        var html=`
-<div class="activity addeventAgendaClass"  id="t_div${c}">
-                                                <div class="activity-icon  text-white shadow-primary" style="background-color: #6eb9bb !important;">
-                                                    <i class="fa fa-check"></i>
-                                                </div>
-                                                <div class="activity-detail d-flex" style="width: 100%">
-                                                    
-                                                    <input class="form-control form-control-sm" style="margin-left: 12px;" name="addeventAgenda[]" type="text" id="addeventAgenda${c}">
-                                                    <div class="mb-2">
-    <div class="float-right">
-                                                            <button class="btn btn-link" id="del_li_btn${c}" onclick="deleteli(${c})" type="button"><i class="fa fa-trash" style="color: #80212a"></i></button>
-                                                        </div>
 
-                                                    </div>
-                                                </div>
-                                            
-<!--<button class="btn btn-link" id="del_li_btn${c}" onclick="deleteli(${c})" type="button">-->
-<!--<i class="fa fa-trash"></i></button>--></div>`;
-        $("#countagendaN").val(c);
-        $("#agendaUL").append(html);
-
-        $("#addeventAgenda").val('');
-    }else{
-        var html=`
-<div class="activity addeventAgendaClass"  id="t_div${c}">
-                                                <div class="activity-icon  text-white shadow-primary" style="background-color: #6eb9bb !important;">
-                                                    <i class="fa fa-check"></i>
-                                                </div>
-                                                <div class="activity-detail" style="width: 100%">
-                                                    <div class="mb-2">
-    <div class="float-right">
-                                                            <button class="btn btn-link" id="del_li_btn${c}" onclick="deleteli(${c})" type="button"><i class="fa fa-trash" style="color: #80212a"></i></button>
-                                                        </div>
-
-                                                    </div>
-                                                    <p style="line-height: 18px;font-size: 13px;">${agenda}</p>
-                                                </div>
-                                            
-<input class="form-control form-control-sm "  name="addeventAgenda[]" value="${agenda}" type="hidden" id="addeventAgenda${c}">
-<!--<button class="btn btn-link" id="del_li_btn${c}" onclick="deleteli(${c})" type="button">-->
-<!--<i class="fa fa-trash"></i></button>--></div>`;
-        $("#countagendaN").val(c);
-        $("#agendaUL").append(html);
-
-        $("#addeventAgenda").val('');
-    }
-
-
-
-
-
-}
-function deleteli(id){
-    $("#addeventAgenda"+id).remove();
-    $("#del_li_btn"+id).hide();
-    $("#t_div"+id).hide();
-
-}
 async function getEventDetailsByID(id,master_id,date,created_by){
     $.LoadingOverlay("show");
     $('#ViewCalendarModal').modal('show');
@@ -210,7 +68,7 @@ async function getEventDetailsByID(id,master_id,date,created_by){
     $("#h6addev").hide();
     $("#showeventdetails").show();
 
-    $('#calendarDate').html("Meeting Schedule");
+  //  $('#calendarDate').html("Meeting Schedule");
     $('#EventBy').show();
     $('#EventBy').html("");
     $('#EventBy').html("Schedule By:" +created_by);
@@ -303,143 +161,46 @@ function setNotesTempateNote2(object, index) {
 }
 
 
-
-
-function addEventNote(){
-    var event_id=$("#event_id").val();
-    var master_id=$("#master_event_id").val();
-    var event_note=$("#EventDetailsNotes").val();
-    let formData = new FormData();
-    formData.set("event_id", event_id);
-    formData.set("master_id", master_id);
-    formData.set("event_note", event_note);
-    app.request(baseURL + 'AddEventDetailsNotes',formData).then(result => {
-        // $.LoadingOverlay("hide");
-        if (result.status == 200) {
-            app.successToast(result.body);
-            getAllComments(master_id);
-        } else {
-            app.errorToast(result.body);
-        }
-    }).catch(error => {
-        console.log(error);
-        // $.LoadingOverlay("hide");
-        //app.errorToast("something went wrong please try again11");
-    })
-}
-
-function getAllComments(){
-
-}
-
-
-function getAllCalendarData() {
-
-    $('#addevendatadiv').show();
-    $("#textAreaEg").show();
-    $("#h6addev").show();
-    $("#EventBy").hide();
-    $("#countagenda").val(0);
-    $('#deleteButton').hide();
-    app.request(baseURL + 'GetCalendarData').then(result => {
-        // $.LoadingOverlay("hide");
-        if (result.status == 200) {
-            // console.log(result.data);
-            return result.data;
-
-        } else {
-            console.log('a');
-        }
-    }).catch(error => {
-        console.log(error);
-        // $.LoadingOverlay("hide");
-        //app.errorToast("something went wrong please try again11");
-    })
-}
-
 function getModalCalendarClick(date) {
+    $("#event_name").val("");
+    $("#event_loc").val("");
+    $("#event_starttime").val("");
+    $("#event_endtime").val("");
+    $("#updateID").val("");
+    $('#editor').trumbowyg("html","");
     $('#ViewCalendarModal').modal('show');
     $("#Og_date").val(date);
     datearr = date.split('T');
-    $('#calendarDate').html("Meeting Schedule");
+    $('#calendarDate').html("Add Event ("+date+")");
 
-    var user_id = $("#whichEmployeeUserId").val();
     var date = convertDate(datearr[0]);
-    getEventBydate(user_id, date);
+  //  getEventBydate(date);
 }
 
-function getEventBydate(user_id, date) {
-
+function getEventBydate(id) {
+    $('#ViewCalendarModal').modal('show');
     let formData = new FormData();
-    formData.set("user_id", user_id);
-    formData.set("date", date);
-    formData.set("id", $("#whichEmployeeId").val());
-    $('#addevendatadiv').show();
-    $("#textAreaEg").show();
-    $("#h6addev").show();
-    $("#countagenda").val(0);
-    $('.addeventAgendaClass').remove();
-    $('#addeventAgenda1').val('');
-    $('#addeventAgenda1').show();
-    $('#del_li_btn1').hide();
-    $('#deleteButton').hide();
-    $("#agendaspan1").html('');
-    $("#EventBy").hide('');
-    $('#updateID').val('');
-    $('#eventName_Show').html('');
-    app.request(baseURL + 'GetCalendarData', formData).then(result => {
+    formData.set("id", id);
+
+    app.request(baseURL + 'GetEventByDate', formData).then(result => {
         // $.LoadingOverlay("hide");
+        $("#event_name").val("");
+        $("#event_loc").val("");
+        $("#event_starttime").val("");
+        $("#event_endtime").val("");
+        $("#updateID").val("");
+        $('#editor').trumbowyg("html","");
         if (result.status == 200) {
 
-            var data = result.data_1;
-            $("#attendance_details").html("");
-            $("#event_details").html("");
-            $("#EventDiv").hide();
-            var event_html = "";
-            $.each(data, function (i) {
-                var type = data[i]['type'];
-                var title = data[i]['title'];
-                if (type == 'attendance') {
-
-                    var split = title.split("-");
-                    var intime = split[0];
-                    var outtime = split[1];
-                    if (typeof intime == 'undefined') {
-                        intime = 'NA';
-                    }
-                    if (typeof outtime == 'undefined') {
-                        outtime = 'NA';
-                    }
-                    var html = `<div class="list-group">
-                            <a href="#" class="list-group-item1 list-group-item-action flex-column align-items-start ">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <small><i class="fas fa-sign-in-alt"></i> <span class="font-weight-bold">Intime: ${intime}</span>
-                                        - <i class="fas fa-sign-out-alt"></i>  <span class="font-weight-bold">Outime: ${outtime}</span></small>
-
-                                </div>
-
-<!--                                <p class="mb-1">Vashi Sector-17 <small class=" text-success"><i class=" fa fa-map-marker"></i>Inside</small></p>-->
-
-                            </a>
-                        </div>`;
-                    $("#attendance_details").html(html);
-                }
-
-                if (type == 'event') {
-                    $("#EventDiv").show();
-                    var start = data[i]['start'];
-                    var start_sp = start.split(" ");
-                    var end = data[i]['end'];
-                    var end_sp = end.split(" ");
-
-                    event_html += `<li class="list-group-item  justify-content-between align-items-center">
-                                        ${title}
-                                        <span class="badge badge-primary badge-pill">${tConvert(start_sp[1])}-${tConvert(end_sp[1])}</span>
-                                    </li>`;
-                }
-            });
-            $("#event_details").html(event_html);
-
+            var data = result.data;
+            console.log(data);
+            $("#event_name").val(data.event_name);
+            $("#event_loc").val(data.location);
+            $("#event_starttime").val(data.start_time);
+            $("#event_endtime").val(data.end_time);
+            $("#updateID").val(data.id);
+            $('#editor').trumbowyg('html',data.event_description);
+            $('#calendarDate').html("Update Event");
         } else {
             console.log('a');
         }
@@ -468,43 +229,7 @@ function tConvert(time1) {
     return t = h + ":" + time[1] + p; // return adjusted time or original string
 }
 
-function getLeaveTypes() {
-    //leave_date_multiple_first   leave_date_multiple_second
-    app.request(baseURL + 'GetLeaveTypes').then(result => {
-        // $.LoadingOverlay("hide");
-        if (result.status === 200) {
-            $("#leaveType").html(result.option);
-        } else {
 
-        }
-    }).catch(error => {
-        console.log(error);
-        // $.LoadingOverlay("hide");
-        // app.errorToast("something went wrong please try again");
-    })
-}
-
-function RequestLeave() {
-    var form_data = document.getElementById('leave_request_form');
-    var formData = new FormData(form_data);
-    app.request(baseURL + 'create_leave_req', formData).then(result => {
-        // $.LoadingOverlay("hide");
-        if (result.status === true) {
-            app.successToast("Request Sent Successfully");
-            $("#leave_request_form")[0].reset();
-            LoadCalendar();
-            $('#add_leaveDive').toggle();
-            $('#mycard-collapse').toggle();
-        } else {
-            app.errorToast(result.error);
-        }
-    }).catch(error => {
-        console.log(error);
-        // $.LoadingOverlay("hide");
-        //   app.errorToast("something went wrong please try again");
-    })
-
-}
 
 function AddMissingPunch() {
     var form_data = document.getElementById('missing_punch_form');
@@ -532,14 +257,15 @@ function AddMissingPunch() {
 
 }
 
-function addEventPayroll1() {
-    var form_data = document.getElementById('add_eventForm');
+function addEventPayroll() {
+    var form_data = document.getElementById('EventForm');
     var formData = new FormData(form_data);
-    app.request(baseURL + 'AddEventPayroll', formData).then(result => {
+    app.request(baseURL + 'AddEvent', formData).then(result => {
         // $.LoadingOverlay("hide");
         if (result.status === 200) {
             app.successToast(result.body);
-            $("#add_eventForm")[0].reset();
+            $("#EventForm")[0].reset();
+            $("#ViewCalendarModal").modal('hide');
             LoadCalendar();
         } else {
             app.errorToast(result.body);
@@ -575,24 +301,7 @@ function deleteEvent() {
     }
 }
 
-function addEventPayroll(data) {
-    var ele = document.getElementById("");
-
-    var spans = ele.getElementsByTagName("span");
-    // console.log(spans);
-    let focusTodayChildActArray = [];
-    let hoursTodayChildActArray = [];
-    for (var i = 0; i < spans.length; i++) {
-        // console.log($(spans[i]));
-        if ($(spans[i]).attr('data-type') == 'focus') {
-            focusTodayChildActArray.push($(spans[i]).attr('data-emp_id'));
-        }
-        if ($(spans[i]).attr('data-type') == 'hours') {
-            hoursTodayChildActArray.push($(spans[i]).attr('data-emp_id'));
-        }
-    }
-    // console.log(focusTodayChildActArray);
-    // console.log(hoursTodayChildActArray);
+function addEventPayroll2(data) {
 
 
     var strhtml = globalRemoveSpanContent(ele);
@@ -622,62 +331,10 @@ function convertDate(inputFormat) {
     }
 
     var d = new Date(inputFormat)
-    return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('/')
+    return [ d.getFullYear(), pad(d.getMonth() + 1),pad(d.getDate())].join('-')
 }
 
-function MarkAttendance(id) {
-    var latitude_live = $("#latitude_live").val();
-    var longitude_live = $("#longitude_live").val();
-    var shortaddress = localStorage.getItem('shortAddr')
-    var address = localStorage.getItem('LognAddr')
-    //var address = $("#longaddress").value;
-    let formData = new FormData();
-    formData.set("status", id);
-    formData.set("latitude_live", latitude_live);
-    formData.set("longitude_live", longitude_live);
-    formData.set("shortaddress", shortaddress);
-    formData.set("address", address);
-    app.request(baseURL + 'emp_login_mbl', formData).then(result => {
-        // $.LoadingOverlay("hide");
-        if (result.message === 'success') {
-            app.successToast("Attendance Mark Succefully");
-            $("#punchinbutton").hide();
-            $("#punchoutbutton").show();
-            LoadCalendar();
-            CheckPunchForToday();
-        } else {
-            app.errorToast(result.error);
-        }
-    }).catch(error => {
-        console.log(error);
-        // $.LoadingOverlay("hide");
-        //   app.errorToast("something went wrong please try again");
-    })
 
-}
-function CheckPunchForToday() {
-    app.request(baseURL + 'GetLoginDetails').then(result => {
-        // $.LoadingOverlay("hide");
-        if (result.message == 'success') {
-            if (result.status == 'intime_marked') {
-
-                $("#punchoutbutton").show();
-                $("#punchinbutton").hide();
-            } else if (result.status == 'attendace_marked') {
-                $("#punchoutbutton").hide();
-                $("#punchinbutton").hide();
-            } else {
-                $("#punchinbutton").show();
-            }
-        } else {
-
-        }
-    }).catch(error => {
-        console.log(error);
-        // $.LoadingOverlay("hide");
-        //   app.errorToast("something went wrong please try again");
-    })
-}
 
 function load_data() {
 

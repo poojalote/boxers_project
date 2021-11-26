@@ -18,7 +18,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <script src="<?php echo base_url(); ?>assets/js/login.js?version=<?= time(); ?>"></script>
 <?php } ?>
 <?php
-if ($this->uri->segment(1) == "" || $this->uri->segment(1) == "index" || $this->uri->segment(1) == "dashboard") { ?>
+if ($this->uri->segment(1) == "" || $this->uri->segment(1) == "index" || $this->uri->segment(1) == "EventManagement") { ?>
 
     <!-- <script src="<?php echo base_url(); ?>assets/stickynote/js/jquery-1.5.2.min.js"></script> -->
   <!-- <script src="<?php echo base_url(); ?>assets/stickynote/js/jquery-ui-1.7.3.min.js"></script> -->
@@ -47,7 +47,13 @@ if ( $this->uri->segment(1) == "dashboard") { ?>
     <script src="<?php echo base_url(); ?>assets/js/fullCalendarFunction.js?version=<?= time(); ?>"></script>
     <?php
 }?>
-
+<?php
+if ( $this->uri->segment(1) == "AtheletManagement") { ?>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.25.1/trumbowyg.min.js" integrity="sha512-t4CFex/T+ioTF5y0QZnCY9r5fkE8bMf9uoNH2HNSwsiTaMQMO0C9KbKPMvwWNdVaEO51nDL3pAzg4ydjWXaqbg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.25.1/plugins/base64/trumbowyg.base64.min.js" integrity="sha512-L1afpNgAjxlMYDMjEnvHo2g71G9rlmur1XnU1UNs2gsaZiVc+YxyxiQn7+b+cT0inAMcBQerGLmJMiODNGofLA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js" integrity="sha512-BkpSL20WETFylMrcirBahHfSnY++H2O1W+UnEEO4yNIl+jI2+zowyoGJpbtk6bx97fBXf++WJHSSK2MV4ghPcg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <?php
+}?>
 
     <!-- Page Specific JS File -->
   <script src="<?php echo base_url(); ?>assets/js/page/components-chat-box.js"></script>

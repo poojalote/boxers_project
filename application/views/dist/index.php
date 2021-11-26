@@ -3,7 +3,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 $id = "";
 $user_id = "";
 if (isset($this->session->user_session)) {
-    $id = $this->session->user_session->id;
     $user_id = $this->session->user_session->user_id;
 } else {
     redirect(base_url());

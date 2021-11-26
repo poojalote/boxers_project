@@ -106,10 +106,10 @@ $route['sample'] = 'Dist/sample';
 $route['GetLeaveTypes'] = 'PayrollController/getLeaveTypes';
 $route['create_leave_req'] = 'PayrollController/add_leave_request';
 $route['AddMissingPunch'] = 'PayrollController/AddMissingPunch';
-$route['GetCalendarData'] = 'PayrollController/GetCalendarData';
+
 $route['emp_login_mbl'] = 'PayrollController/emp_login_mbl';
 $route['GetLoginDetails'] = 'PayrollController/GetLoginDetails';
-$route['AddEventPayroll'] = 'PayrollController/AddEventPayroll';
+
 $route['getPermissionUser'] = 'PayrollController/getPermissionUser';
 
 
@@ -118,6 +118,35 @@ $route['CreateNewSticky'] = 'StickyController/CreateNewSticky';
 $route['UpdateSticky'] = 'StickyController/UpdateSticky';
 $route['getAllSticky'] = 'StickyController/getAllSticky';
 $route['createNotes'] = 'StickyController/createNotes';
-$route['GetEventByid'] = 'PayrollController/GetEventByid';
+
 $route['AddEventDetailsNotes'] = 'PayrollController/AddEventDetailsNotes';
-$route['deleteEventFun'] = 'PayrollController/deleteEventFun';
+
+
+
+// event
+$route['EventManagement'] = 'EventController';
+$route['AddEvent'] = 'EventController/AddEvent';
+$route['GetEventData'] = 'EventController/GetEventData';
+$route['GetEventByDate'] = 'EventController/GetEventByDate';
+$route['GetEventByid'] = 'EventController/GetEventByid';
+$route['deleteEventFun'] = 'EventController/deleteEventFun';
+
+//athelrtr
+$route['AtheletManagement'] = 'AthleteController';
+$route['AddAthlete'] = 'AthleteController/AddAthlete';
+$route['ViewAthelet'] = 'AthleteController/ViewAthelet';
+$route['DeleteAthelet'] = 'AthleteController/DeleteAthelet';
+$route['ViewAtheletByID'] = 'AthleteController/ViewAtheletByID';
+$route['EnquiryManagement'] = 'AthleteController/EnquiryManagement';
+
+
+$route['Login']='LoginController';
+
+
+//boxing routes
+$route['Home']='BoxingController/index';
+$route['Gallery']='BoxingController/gallery';
+$route['ContactUs']='BoxingController/contactus';
+$route['About']='BoxingController/about';
+$route['Event']='BoxingController/event';
+$route['EventDetails']='BoxingController/eventdetails';
